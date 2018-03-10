@@ -9,7 +9,7 @@ app.use(bodyParser.urlencoded({extended: true}))    // important to do this befo
 
 // Questioning the order in which we establish a connection to the MongoDB, maybe this should be at the point 
 // the handler picks up a request in which we need the database.  
-mongoClient.connect('mongodb://mongoUser42:SandyCode100!@ds257858.mlab.com:57858/spik01', (err, client) => {
+mongoClient.connect('', (err, client) => {
     if (err) return console.log(err)
     db = client.db('spik01')
     app.listen(3000, function() {
