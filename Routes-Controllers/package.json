@@ -1,0 +1,19 @@
+{
+  "name": "routes-controllers",
+  "version": "1.0.0",
+  "description": "Set up routes with handler functions to develop modular structure for route handling code.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mspiker/NodeJS/routes-controllers"
+  },
+  "keywords": [
+    "MVC",
+    "Routes"
+  ],
+  "author": "Mark Spiker",
+  "license": "MIT"
+}

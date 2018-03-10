@@ -17,7 +17,6 @@ mongoClient.connect('', (err, client) => {
     })
 })
 
-
 // All your handlers here...
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/views/index.html')
