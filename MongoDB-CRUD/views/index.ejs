@@ -2,25 +2,61 @@
 <html lang="en">
     <head>
         <% include ./partials/head %>
+        <meta name="theme-color" content="#007bff">
     </head>
-    <body>
+    <body style="padding-top: 60px;">
         <% include ./partials/header %>
-        <ul class="quotes">
-            <% for(var i=0; i<quotes.length;i++) {%>
-                <li class="quote">
-                    <span><%= quotes[i].name %></span>
-                    <span><%= quotes[i].quote %></span>
-                </li>
-            <% } %>
-        </ul>
+        <div class="container-fluid"  style="border-top: 175px;">
+            <p>This is your to-do list.  Click New Item to add a new task to your list.</p>
+        
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                New Item
+            </button>
+            <hr/>
 
-        <form action="/quotes" method="POST">
-            <input type="text" placeholder="name" name="name">
-            <input type="text" placeholder="quote" name="quote">
-            <button type="submit">Submit</button>
-        </form>
+            <div class="list-group">
+                <% for(var i=0; i<tasks.length;i++) {%>
+                <a href="#" class="list-group-item list-group-item-action">
+                    <span><%= tasks[i].name %></span>
+                    <span> | </span>
+                    <span><%= tasks[i].status %></span>
+                </a>
+                <% } %>
+            </div>
+
+            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Add an Item</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="/tasks" method="POST">
+                        <div class="modal-body">
+                            <input type="text" class="form-control" aria-describedby="nameHelp" placeholder="Task to get done" name="name">
+                            <small id="nameHelp" class="form-text text-muted">Brief description of the task you want to accomplish.</small>
+                            <input type="text" class="form-control" aria-describedby="statusHelp" placeholder="Status" name="status">
+                            <small id="nameHelp" class="form-text text-muted">What is the status of getting this task done?</small>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="navbar navbar-fixed-bottom navbar-light bg-light">
+            <p class="muted credit"><center>Copyright &copy; 2018 Mark Spiker.</center></p>
+        </div>
 
         <% include ./partials/bodyscript %>
 
     </body>
+    
 </html>
