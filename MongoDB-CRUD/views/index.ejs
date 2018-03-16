@@ -2,14 +2,24 @@
 <html lang="en">
     <head>
         <% include ./partials/head %>
-        <meta name="theme-color" content="#007bff">
+        <script>
+        
+        </script>
     </head>
     <body style="padding-top: 60px;">
         <% include ./partials/header %>
         <div class="container-fluid"  style="border-top: 175px;">
-            <p>This is your to-do list.  Click New Item to add a new task to your list.</p>
-        
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+            <div class="btn-group">
+                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    To Do List
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">To Do</a>
+                    <a class="dropdown-item" href="#">Groceries</a>
+                    <a class="dropdown-item" href="#">Prepare for Party</a>
+                </div>
+            </div>
+            <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#createModalCenter">
                 New Item
             </button>
             <hr/>
@@ -17,27 +27,61 @@
             <div class="list-group">
                 <% for(var i=0; i<tasks.length;i++) {%>
                 <a href="#" class="list-group-item list-group-item-action">
-                    <span><%= tasks[i].name %></span>
-                    <span> | </span>
-                    <span><%= tasks[i].status %></span>
+                    <span>
+                        <button type="button" onclick="editTask('<%= tasks[i]._id %>')" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#updateModalCenter">
+                            Edit
+                        </button>
+                        <button type="button" onclick="deleteTask('<%= tasks[i]._id %>')" class="btn btn-secondary btn-sm">
+                            Remove
+                        </button>
+                        <%= tasks[i].name %> - <%= tasks[i].status %>
+                    </span>
                 </a>
                 <% } %>
             </div>
 
-            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal fade" id="createModalCenter" tabindex="-1" role="dialog" aria-labelledby="createModalCenterTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Add an Item</h5>
+                        <h5 class="modal-title" id="createModalLongTitle">Add an Item</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form action="/tasks" method="POST">
+                    <form action="/task/add" method="POST">
                         <div class="modal-body">
                             <input type="text" class="form-control" aria-describedby="nameHelp" placeholder="Task to get done" name="name">
                             <small id="nameHelp" class="form-text text-muted">Brief description of the task you want to accomplish.</small>
                             <input type="text" class="form-control" aria-describedby="statusHelp" placeholder="Status" name="status">
+                            <small id="nameHelp" class="form-text text-muted">What is the status of getting this task done?</small>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Add Task</button>
+                        </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="modal fade" id="updateModalCenter" tabindex="-1" role="dialog" aria-labelledby="updateModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="updateModalLongTitle">Modify an Item</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="/task_update" method="POST">
+                        <div class="modal-body">
+                            <input type="text" id="edit_id" name="task[_id]" hidden class="form-control">
+                            <input type="text" id="edit_name" name="task[name]" class="form-control" aria-describedby="nameHelp" placeholder="Task to get done">
+                            <small id="nameHelp" class="form-text text-muted">Brief description of the task you want to accomplish.</small>
+                            <input type="text" id="edit_status" name="task[status]" class="form-control" aria-describedby="statusHelp" placeholder="Status">
                             <small id="nameHelp" class="form-text text-muted">What is the status of getting this task done?</small>
                         </div>
                         <div class="modal-footer">
@@ -48,7 +92,6 @@
                     </div>
                 </div>
             </div>
-            
         </div>
 
         <div class="navbar navbar-fixed-bottom navbar-light bg-light">
@@ -56,6 +99,47 @@
         </div>
 
         <% include ./partials/bodyscript %>
+
+        <script>
+            function deleteTask(task_id) {
+                $.ajax({
+                    type: "GET",
+                    url: "/task_delete/" + task_id,
+                    success: function(data) {
+                        if (data.errcode=='') {
+                            location.reload();
+                        }
+                    }
+                })
+            }
+
+            function editTask(task_id) {
+                $.ajax({
+                    type: "GET",
+                    url: "/task/edit/" + task_id,
+                    success: function(data) {
+                        if (data.errcode=='') {
+                            $("#edit_id").val(data.rec[0]._id);
+                            $("#edit_name").val(data.rec[0].name);
+                            $("#edit_status").val(data.rec[0].status);
+                        } else {
+                            alert(data.errcode);
+                        }
+                    }
+                })
+            }
+
+            $(window).scroll(function() {
+                sessionStorage.scrollTop = $(this).scrollTop();
+            });
+
+            $(document).ready(function() {
+                if (sessionStorage.scrollTop != "undefined") {
+                    $(window).scrollTop(sessionStorage.scrollTop);
+                }
+            });
+
+        </script>
 
     </body>
     
