@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <% include ./partials/head %>
+        <style>
+        iframe {
+    display: block;
+    background: #ffffff;
+    border: none;
+    width: 100%;
+    
+}
+        </style>
+    </head>
+    <body style="padding-top: 60px;">
+        <% include ./partials/header %>
+        
+        <% include ./partials/bodyscript %>
+
+        <script>
+            
+        </script>
+        
+       <div class="container">
+                
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                  <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#home">Home</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#menu1" onclick="addTab()">Menu 1</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#menu2">Menu 2</a>
+                  </li>
+                </ul>
+                
+                <!-- Tab panes -->
+                <div id="tabBody" class="tab-content">
+                  <div id="home" class="container tab-pane active">
+                    <iframe src="http://localhost:3500" scrolling="no" onload="this.style.height=this.contentDocument.body.scrollHeight +'px';"></iframe>
+                  </div>
+                  <div id="menu1" class="container tab-pane fade"></div>
+                  <div id="menu2" class="container tab-pane fade"></div>
+                </div>
+              </div>
+
+
+        <div class="navbar navbar-fixed-bottom navbar-light bg-light">
+            <p class="muted credit"><center>Copyright &copy; 2018 Mark Spiker.</center></p>
+        </div>
+
+        <script>
+        function addTab()
+        {
+            if (!document.getElementById("menu1").hasChildNodes()) {
+                var x = document.createElement("IFRAME");
+                x.setAttribute("src", "http://localhost:3500");
+                x.setAttribute("onload", "this.style.height=this.contentDocument.body.scrollHeight +'px';")
+                document.getElementById("menu1").appendChild(x);
+            }
+        }
+        
+        </script>
+        
+
+    </body>
+    
+</html>
