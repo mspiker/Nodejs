@@ -7,48 +7,39 @@ You should have already installed the following:
 - [ ] NodeJS
 - [ ] Windows Terminal 
 
-Create a directory on your drive for all NodeJS source code.  Then create a project directory for your latest project.  Make this your current directory. 
-
+- [ ] Create the project directory in your code repository.
 ```powershell
 mkdir myApp
 cd myApp
 ```
 
-Next we will execute the following command to initialize the Node.js project with default settings.
-
+- [ ] Initialize the project with default settings, make sure the currect directory is the project directory.
 ```powershell
 npm init -y
 ```
-
-This will create package.json file in the project directory.  Under the project directory we will create a new file named index.js. 
-
-- [ ] Create new file - index.js
-
-Nodemon is used to monitor source code and automatically restart Node.js server whenever code changes.  
-
+- [ ] Create index.js, this will become our server and main entry point.  Can be empty for now. 
+- [ ] Install Nodemon, to monitor source code and automatically restart Node.js server whenever code changes.  
 ```powershell
 npm i -D nodemon
 ```
-
-- [ ] In package.json, around line 6 replace test script with the following.
-
+- [ ] Modify package.json (around line 6); replace test script with the following.
 ```json
 "scripts": {
     "dev": "nodemon ./index.js"
   },
 ```
-
+---
 At this point the basic structure is in place.  You could write a small application to test if everything is working. 
-
 ```js
+// index.js
 console.log('Server is running.');
 ```
 
-To start the application
-
+To start the server
 ```powershell
 npm run dev
 ```
+
 ## Preparing for Git
 Create a .gitignore file under the project directory.  Below is a good starting point for this file.
 
