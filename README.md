@@ -7,6 +7,7 @@ You should have already installed the following:
 - [ ] NodeJS
 - [ ] Windows Terminal 
 
+### Setting up the environment
 - [ ] Create the project directory in your code repository.
 ```powershell
 mkdir myApp
