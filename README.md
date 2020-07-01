@@ -111,14 +111,71 @@ Once this is installed we have a few modifications to make to our index.js file.
 const ejs = require("ejs";
 ```
 
-- [ ] Create a sub directory off the project directory to hold the view templates.
+- [ ] Create sub directories off the project directory to hold the view templates.
 ```powershell
-mkdir views
+projectFolder
+|
+|-- views
+    |
+    |-- pages
 ```
 
-- [ ] In the App Variables section add
+- [ ] In the App Configuration section add
 ```js
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
+app.use(express.static("./public"));
+```
+
+- [ ] Modify the Routes Definitions section to be as follows
+```js
+app.get("/", (req, res) => {
+    res.render('pages/home');
+  });
+```
+
+## Creating the basic framework 
+
+- [ ] Create head.ejs under views/template
+```html
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <meta http-equiv="X-UA-Compatible" content="ie-edge" />
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+        <!-- Markdown Support -->
+        <script src="https://cdn.jsdelivr.net/npm/@webcomponents/webcomponentsjs@2/webcomponents-loader.min.js"></script>
+        <script type="module" src="https://cdn.jsdelivr.net/gh/zerodevx/zero-md@1/src/zero-md.min.js"></script>
+        <title>My App Title</title>
+    </head>
+```
+
+- [ ] Create home.js under views/pages
+```js
+<%- include('../template/head')-%>
+
+<body>
+    <nav class="navbar navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="#">My Application</a>
+        <div>
+            <button class="btn btn-outline-success my-2 my-sm-0">Login</button>
+        </div>
+    </nav>
+
+    <div class="container-fluid" style="margin-top: 100px;">
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>This is a prototype application. </strong> Some features may not work properly, it is meant to provide an idea on the design of the production ready application.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+</body>
+</html>
+
+<%- include('../template/scripts')-%>
 ```
 
