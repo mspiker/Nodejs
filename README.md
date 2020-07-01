@@ -51,12 +51,11 @@ node_modules/
 ```
 
 ## Integrating the Express Web Framework
-We will start by installing Express as a project dependency.  
-
+- [ ] Install Express as a project dependency.
 ```powerscript
 npm i express
 ```
-Copy the following template in index.js
+Copy the code below into index.js, we will modify later.  
 ```js
 /**
  * Required External Modules
@@ -88,15 +87,16 @@ app.listen(port, () => {
     console.log(`Listening to requests on http://localhost:${port}`);
   });
 ```
+---
+At this point a basic server should start and serve up the text "myApp" by navigating your browser to http://localhost:8000.
 
 ## Installing a Template Engine
-To install EJS (Extended Java Script) we will add the dependency as follows.
-
+- [ ] Install EJS (Extended Java Script) we will add the dependency as follows.
 ```powershell
 npm i ejs
 ```
-
-Once this is installed we have a few modifications to make to our index.js file.  
+### Modifications to index.js and folder structure
+Once installed we have a few modifications to make to our index.js file.  
 
 - [ ] In the Required External Modules section add
 ```js
