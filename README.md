@@ -55,6 +55,8 @@ node_modules/
 ```powerscript
 npm i express
 ```
+If you run into permission issues see this link showing how to exclude the node_modules directory from Virus protection.  https://stackoverflow.com/questions/56829352/error-the-operation-was-rejected-by-your-operating-system-when-trying-to-crea.
+
 Copy the code below into index.js, we will modify later.  
 ```js
 /**
